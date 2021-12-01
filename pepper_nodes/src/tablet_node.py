@@ -18,9 +18,16 @@ class TabletNode:
         except:
             self.tablet_proxy = ALProxy("ALTabletService", self.ip, self.port)
             self.tablet_proxy.showWebview(msg.url)
+        return "ACK"
 
     def execute_js(self, msg):
-        self.tablet_proxy.executeJS(msg.js)
+        try:
+            self.tablet_proxy.executeJS(msg.js)
+        except:
+            self.tablet_proxy = ALProxy("ALTabletService", self.ip, self.port)
+            self.tablet_proxy.executeJS(msg.js)
+            
+        return "ACK"
 
     def start(self):
         rospy.init_node("tablet_node")

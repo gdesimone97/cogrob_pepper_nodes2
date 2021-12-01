@@ -18,6 +18,7 @@ class WakeUpNode:
         except:
             self.motion_proxy = ALProxy("ALMotion", self.ip, self.port)
             self.motion_proxy.rest()
+        return "ACK"
 
     def wakeup(self, *args):
         try:
@@ -27,7 +28,9 @@ class WakeUpNode:
             self.motion_proxy = ALProxy("ALMotion", self.ip, self.port)
             self.posture_proxy = ALProxy("ALRobotPosture", self.ip, self.port)
             self.motion_proxy.wakeUp()
-            self.stand()            
+            self.stand()         
+
+        return "ACK"   
 
     def stand(self, *args):
         self.posture_proxy.goToPosture("StandInit", 0.5)

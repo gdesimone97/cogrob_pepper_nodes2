@@ -7,13 +7,23 @@ import rospy
 class HeadMotionNode:
 
     def __init__(self, ip, port):
+        self.ip = ip
+        self.port = port
         self.motion_proxy = ALProxy("ALMotion", ip, port)
 
     def head_yaw(self, msg):
-        self.motion_proxy.setAngles(["HeadYaw"], [msg.data[0]], msg.data[1])
+        try:
+            self.motion_proxy.setAngles(["HeadYaw"], [msg.data[0]], msg.data[1])
+        except:
+            self.motion_proxy = ALProxy("ALMotion", self.ip, self.port)
+            self.motion_proxy.setAngles(["HeadYaw"], [msg.data[0]], msg.data[1])
 
     def head_pitch(self, msg):
-        self.motion_proxy.setAngles(["HeadPitch"], [msg.data[0]], msg.data[1])
+        try:
+            self.motion_proxy.setAngles(["HeadPitch"], [msg.data[0]], msg.data[1])
+        except:
+            self.motion_proxy = ALProxy("ALMotion", self.ip, self.port)
+            self.motion_proxy.setAngles(["HeadPitch"], [msg.data[0]], msg.data[1])
 
     def start(self):
         rospy.init_node("head_motion_node")
