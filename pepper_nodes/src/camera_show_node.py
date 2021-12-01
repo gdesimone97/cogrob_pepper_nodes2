@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import rospy
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
@@ -18,7 +20,7 @@ class Nodo(object):
 
     def start(self):
         # Subscriber
-        rospy.Subscriber("/camera/image_color", Image, self.callback)
+        rospy.Subscriber("/in_rgb", Image, self.callback)
 
         rospy.spin()
 
