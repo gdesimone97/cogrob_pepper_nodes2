@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 from utils import Session
 from optparse import OptionParser
 from pepper_nodes.srv import *
