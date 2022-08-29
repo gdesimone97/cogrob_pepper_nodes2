@@ -1,8 +1,8 @@
 <launch>
   <arg name="nao_ip" default="$(optenv NAO_IP 10.0.1.230)" />
   <arg name="nao_port" default="$(optenv NAO_PORT 9559)" />
-  <param name="ip" type="string" value="10.0.1.230"/>
-  <param name="port" type="string" value="9559"/>
+  <param name="ip" type="string" value="$(arg nao_ip)"/>
+  <param name="port" type="string" value="$(arg nao_port)"/>
 
   <node pkg="pepper_nodes" type="wakeup_node.py" name="wakeup_node" required="true" args="--ip=$(arg nao_ip) --port=$(arg nao_port)" output="screen" />
   <node pkg="pepper_nodes" type="head_motion_node.py" name="head_motion_node" required="true" args="--ip=$(arg nao_ip) --port=$(arg nao_port)" output="screen" />
