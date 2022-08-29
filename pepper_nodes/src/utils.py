@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from application_node import Application
 
 class Session:
