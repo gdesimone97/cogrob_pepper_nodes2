@@ -29,6 +29,8 @@ class Text2SpeechNode:
         rospy.spin()
 
 if __name__ == "__main__":
+    import time
+    time.sleep(3)
     parser = OptionParser()
     parser.add_option("--ip", dest="ip", default="10.0.1.207")
     parser.add_option("--port", dest="port", default=9559)
