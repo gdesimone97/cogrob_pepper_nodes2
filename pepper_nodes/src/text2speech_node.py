@@ -9,7 +9,7 @@ class Text2SpeechNode:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.session = Session()
+        self.session = Session(ip, port)
         self.tts = self.session.get_service("ALTextToSpeech")
         
 

@@ -26,7 +26,7 @@ MODE_RGBD = 2
 class ImageInputNode:
 
     def __init__(self, ip, port, resolution=RES_480P, rgb_camera=TOP_CAMERA, fps=20):
-        self.session = Session()
+        self.session = Session(ip, port)
         self.fps = fps
 
         if resolution == RES_120P:

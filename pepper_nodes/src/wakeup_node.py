@@ -9,7 +9,7 @@ class WakeUpNode:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.session = Session()
+        self.session = Session(ip, port)
         self.motion_proxy = self.session.get_service("ALMotion")
         self.posture_proxy = self.session.get_service("ALRobotPosture")
 

@@ -10,7 +10,7 @@ class TabletNode:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.session = Session()
+        self.session = Session(ip, port)
         self.tablet_proxy = self.session.get_service("ALTabletService")
         self.tablet_proxy.resetTablet()
 
