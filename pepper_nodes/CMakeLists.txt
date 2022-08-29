@@ -167,6 +167,7 @@ catkin_install_python(PROGRAMS
   src/wakeup_node.py
   src/text2speech_node.py
   src/tablet_node.py
+  src/application_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
