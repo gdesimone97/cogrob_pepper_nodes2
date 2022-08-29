@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from application_node import Application
+from application_node import SingletonMeta
 
 class Session:
     def __init__(self):
