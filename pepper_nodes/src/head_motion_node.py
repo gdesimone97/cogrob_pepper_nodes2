@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from naoqi import ALProxy
+from utils import Session
 from optparse import OptionParser
 from std_msgs.msg import Float32MultiArray
 import rospy
@@ -9,20 +9,21 @@ class HeadMotionNode:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.motion_proxy = ALProxy("ALMotion", ip, port)
+        self.session = Session()
+        self.motion_proxy = self.session.get_service("ALMotion")
 
     def head_yaw(self, msg):
         try:
             self.motion_proxy.setAngles(["HeadYaw"], [msg.data[0]], msg.data[1])
         except:
-            self.motion_proxy = ALProxy("ALMotion", self.ip, self.port)
+            self.motion_proxy = self.motion_proxy = self.session.get_service("ALMotion")
             self.motion_proxy.setAngles(["HeadYaw"], [msg.data[0]], msg.data[1])
 
     def head_pitch(self, msg):
         try:
             self.motion_proxy.setAngles(["HeadPitch"], [msg.data[0]], msg.data[1])
         except:
-            self.motion_proxy = ALProxy("ALMotion", self.ip, self.port)
+            self.motion_proxy = self.motion_proxy = self.session.get_service("ALMotion")
             self.motion_proxy.setAngles(["HeadPitch"], [msg.data[0]], msg.data[1])
 
     def start(self):

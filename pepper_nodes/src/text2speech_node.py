@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from naoqi import ALProxy
+from utils import Session
 from optparse import OptionParser
 from pepper_nodes.srv import *
 import rospy
@@ -9,14 +9,16 @@ class Text2SpeechNode:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.tts = ALProxy("ALTextToSpeech", ip, port)
+        self.session = Session()
+        self.tts = self.session.get_service("ALTextToSpeech")
         
 
     def say(self, msg):
         try:
             self.tts.say(msg.speech)
         except:
-            self.tts = ALProxy("ALTextToSpeech", self.ip, self.port)
+            self.session.reconnect()
+            self.tts = self.session.get_service("ALTextToSpeech")
             self.tts.say(msg.speech)
         return "ACK"
     

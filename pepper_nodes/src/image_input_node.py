@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from cv_bridge import CvBridge
-from naoqi import ALProxy
+from utils import Session
 from optparse import OptionParser
 from sensor_msgs.msg import Image
 import numpy as np
@@ -26,6 +26,7 @@ MODE_RGBD = 2
 class ImageInputNode:
 
     def __init__(self, ip, port, resolution=RES_480P, rgb_camera=TOP_CAMERA, fps=20):
+        self.session = Session()
         self.fps = fps
 
         if resolution == RES_120P:
@@ -38,7 +39,7 @@ class ImageInputNode:
             self.width, self.height = 1280, 960
         else:
             self.width, self.height = None, None
-        self.camera = ALProxy("ALVideoDevice", ip, port)
+        self.camera = self.session.get_service("ALVideoDevice")
         self.rgb_sub = self.camera.subscribeCamera("RGB Stream", rgb_camera, resolution, COLORSPACE_RGB, self.fps)
         if not self.rgb_sub:
             raise Exception("Camera is not initialized properly")
