@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from naoqi import ALProxy
+from utils import Session
 from optparse import OptionParser
 from pepper_nodes.srv import *
 import rospy
@@ -9,14 +9,15 @@ class WakeUpNode:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.motion_proxy = ALProxy("ALMotion", ip, port)
-        self.posture_proxy = ALProxy("ALRobotPosture", ip, port)
+        self.session = Session()
+        self.motion_proxy = self.session.get_service("ALMotion")
+        self.posture_proxy = self.session.get_service("ALRobotPosture")
 
     def rest(self, *args):
         try:
             self.motion_proxy.rest()
         except:
-            self.motion_proxy = ALProxy("ALMotion", self.ip, self.port)
+            self.motion_proxy = self.session.get_service("ALMotion")
             self.motion_proxy.rest()
         return "ACK"
 
@@ -25,8 +26,8 @@ class WakeUpNode:
             self.motion_proxy.wakeUp()
             self.stand()
         except:
-            self.motion_proxy = ALProxy("ALMotion", self.ip, self.port)
-            self.posture_proxy = ALProxy("ALRobotPosture", self.ip, self.port)
+            self.motion_proxy = self.session.get_service("ALMotion")
+            self.posture_proxy = self.session.get_service("ALRobotPosture")
             self.motion_proxy.wakeUp()
             self.stand()         
 

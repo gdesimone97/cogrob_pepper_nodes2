@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from naoqi import ALProxy
+from utils import Session
 from optparse import OptionParser
 from pepper_nodes.srv import *
 import rospy
@@ -9,14 +9,15 @@ class TabletNode:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.tablet_proxy = ALProxy("ALTabletService", ip, port)
+        self.session = Session()
+        self.tablet_proxy = self.session.get_service("ALTabletService")
         self.tablet_proxy.resetTablet()
 
     def load_url(self, msg):
         try:
             self.tablet_proxy.showWebview(msg.url)
         except:
-            self.tablet_proxy = ALProxy("ALTabletService", self.ip, self.port)
+            self.tablet_proxy = self.session.get_service("ALTabletService")
             self.tablet_proxy.showWebview(msg.url)
         return "ACK"
 
@@ -24,7 +25,7 @@ class TabletNode:
         try:
             self.tablet_proxy.executeJS(msg.js)
         except:
-            self.tablet_proxy = ALProxy("ALTabletService", self.ip, self.port)
+            self.tablet_proxy = self.session.get_service("ALTabletService")
             self.tablet_proxy.executeJS(msg.js)
             
         return "ACK"
