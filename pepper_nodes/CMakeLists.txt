@@ -168,6 +168,9 @@ catkin_install_python(PROGRAMS
   src/text2speech_node.py
   src/tablet_node.py
   src/application_node.py
+  src/image_input_node.py
+  src/head_motion_node.py
+  src/utils.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
