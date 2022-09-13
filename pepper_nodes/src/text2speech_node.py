@@ -4,15 +4,24 @@ from optparse import OptionParser
 from pepper_nodes.srv import *
 import rospy
 
+'''
+This class implements a ROS node able to call the Text to speech service of the robot
+'''
 class Text2SpeechNode:
-
+    
+    '''
+    The costructor creates a session to Pepper and inizializes the services
+    '''
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
         self.session = Session(ip, port)
         self.tts = self.session.get_service("ALTextToSpeech")
-        
-
+     
+    '''
+    Rececives a Text2Speech message and call the ALTextToSpeech service.
+    The robot will play the text of the message
+    '''
     def say(self, msg):
         try:
             self.tts.say(msg.speech)
@@ -22,6 +31,9 @@ class Text2SpeechNode:
             self.tts.say(msg.speech)
         return "ACK"
     
+    '''
+    Starts the node and create the tts service
+    '''
     def start(self):
         rospy.init_node("text2speech_node")
         rospy.Service('tts', Text2Speech, self.say)

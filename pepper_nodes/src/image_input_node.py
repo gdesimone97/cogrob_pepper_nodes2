@@ -23,8 +23,15 @@ MODE_RGB = 0
 MODE_DEPTH = 1
 MODE_RGBD = 2
 
+'''
+This class configures a ROS node able to read the video stream from the robot's camera
+'''
 class ImageInputNode:
-
+    
+    '''
+    The costructor creates a session to Pepper and inizializes the services. Then opens a video stream with the Pepper camera.
+    The video stream is then published on a specific topic. Camera parameters can be configured using the above variables
+    '''
     def __init__(self, ip, port, resolution=RES_480P, rgb_camera=TOP_CAMERA, fps=20):
         self.session = Session(ip, port)
         self.fps = fps
@@ -40,17 +47,24 @@ class ImageInputNode:
         else:
             self.width, self.height = None, None
         self.camera = self.session.get_service("ALVideoDevice")
-        self.rgb_sub = self.camera.subscribeCamera("RGB Stream", rgb_camera, resolution, COLORSPACE_RGB, self.fps)
+        self.rgb_sub = self.camera.subscribeCamera("RGB Stream", rgb_camera, resolution, COLORSPACE_RGB, self.fps) #https://bit.ly/3BEFZIr
         if not self.rgb_sub:
             raise Exception("Camera is not initialized properly")
         self.image_publisher = rospy.Publisher('in_rgb', Image, queue_size=1)
         self.bridge = CvBridge()
-
+    
+    '''
+    Retrieves the latest image from the video source. Then tranforms it into a numpy array
+    @return: Returns the image frame like a numpy array
+    '''
     def get_color_frame(self):
         raw_rgb = self.camera.getImageRemote(self.rgb_sub)
         image = np.frombuffer(raw_rgb[6], np.uint8).reshape(raw_rgb[1], raw_rgb[0], 3)
         return image
-
+    
+    '''
+    Returns the horizontal and vertical field of view of the camera, expressed in radians.
+    '''
     def get_fov(self, mode="RGB"):
         hfov, vfov = 0, 0
         if mode == "RGB":
@@ -58,9 +72,15 @@ class ImageInputNode:
             vfov = 44.3 * np.pi / 180
         return hfov, vfov
     
+    '''
+    Unregisters a module from ALVideoDevice
+    '''
     def stop(self):
         self.camera.unsubscribe(self.rgb_sub)
-
+    
+    '''
+    Starts the node and opens the video stream
+    '''
     def start(self):
         rospy.init_node("image_input_node")
         rate = rospy.Rate(self.fps)

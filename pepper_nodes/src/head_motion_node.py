@@ -5,28 +5,43 @@ from optparse import OptionParser
 from std_msgs.msg import Float32MultiArray
 import rospy
 
+'''
+This class implements a ROS node that controls the robot head
+'''
 class HeadMotionNode:
-
+    
+    '''
+    The costructor creates a session to Pepper and inizializes the services
+    '''
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
         self.session = Session(ip, port)
         self.motion_proxy = self.session.get_service("ALMotion")
-
+    
+    '''
+    This method calls the ALMotion service to move the robot head relative to the yaw angle
+    '''
     def head_yaw(self, msg):
         try:
             self.motion_proxy.setAngles(["HeadYaw"], [msg.data[0]], msg.data[1])
         except:
             self.motion_proxy = self.motion_proxy = self.session.get_service("ALMotion")
             self.motion_proxy.setAngles(["HeadYaw"], [msg.data[0]], msg.data[1])
-
+    
+    '''
+    This method calls the ALMotion service to move the robot head relative to the pitch angle
+    '''
     def head_pitch(self, msg):
         try:
             self.motion_proxy.setAngles(["HeadPitch"], [msg.data[0]], msg.data[1])
         except:
             self.motion_proxy = self.motion_proxy = self.session.get_service("ALMotion")
             self.motion_proxy.setAngles(["HeadPitch"], [msg.data[0]], msg.data[1])
-
+            
+    '''
+    This method starts the node and subscribes it to the topics
+    '''
     def start(self):
         rospy.init_node("head_motion_node")
         rospy.Subscriber("/head_rotation/yaw", Float32MultiArray, self.head_yaw)

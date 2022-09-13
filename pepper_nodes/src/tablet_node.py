@@ -5,15 +5,24 @@ from optparse import OptionParser
 from pepper_nodes.srv import *
 import rospy
 
+'''
+This class implements a ROS node used to controll the Pepper tablet
+'''
 class TabletNode:
-
+    
+    '''
+    The costructor creates a session to Pepper and inizializes the services
+    '''
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
         self.session = Session(ip, port)
         self.tablet_proxy = self.session.get_service("ALTabletService")
         self.tablet_proxy.resetTablet()
-
+    
+    '''
+    It receives a LoadUrl message and displays the web page associated with the url on the tablet.
+    '''
     def load_url(self, msg):
         try:
             self.tablet_proxy.showWebview(msg.url)
@@ -21,7 +30,10 @@ class TabletNode:
             self.tablet_proxy = self.session.get_service("ALTabletService")
             self.tablet_proxy.showWebview(msg.url)
         return "ACK"
-
+    
+    '''
+     It receives a LoadUrl message and executes the javascript on the web browser
+    '''
     def execute_js(self, msg):
         try:
             self.tablet_proxy.executeJS(msg.js)
@@ -30,7 +42,10 @@ class TabletNode:
             self.tablet_proxy.executeJS(msg.js)
             
         return "ACK"
-
+    
+    '''
+    Starts the node and creates the services
+    '''
     def start(self):
         rospy.init_node("tablet_node")
 

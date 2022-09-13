@@ -4,15 +4,24 @@ from optparse import OptionParser
 from pepper_nodes.srv import *
 import rospy
 
+'''
+This class implements a ROS node used to controll the Pepper posture
+'''
 class WakeUpNode:
-
+    
+    '''
+    The costructor creates a session to Pepper and inizializes the services
+    '''
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
         self.session = Session(ip, port)
         self.motion_proxy = self.session.get_service("ALMotion")
         self.posture_proxy = self.session.get_service("ALRobotPosture")
-
+    
+    '''
+    This method calls the ALMotion service and sets the robot to rest position
+    '''
     def rest(self, *args):
         try:
             self.motion_proxy.rest()
@@ -20,7 +29,10 @@ class WakeUpNode:
             self.motion_proxy = self.session.get_service("ALMotion")
             self.motion_proxy.rest()
         return "ACK"
-
+    
+    '''
+    This method calls the ALMotion and ALRobotPosture services and it sets motors on and then it sets the robot posture to initial position
+    '''
     def wakeup(self, *args):
         try:
             self.motion_proxy.wakeUp()
@@ -32,10 +44,16 @@ class WakeUpNode:
             self.stand()         
 
         return "ACK"   
-
+    
+    '''
+    This method sets the robot posture to "StandInit" posture
+    '''
     def stand(self, *args):
         self.posture_proxy.goToPosture("StandInit", 0.5)
-
+    
+    '''
+    Starts the node and wake up the robot
+    '''
     def start(self):
         rospy.init_node("wakeup_node")
         self.wakeup()
