@@ -1,4 +1,5 @@
 .idea
-./devel
-./build
+devel
+build
+logs
 .catkin_tools
