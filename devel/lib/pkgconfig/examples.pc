@@ -1,8 +1,0 @@
-prefix=/home/peppo97/Documents/Github/cogrob_pepper_nodes/devel
-
-Name: examples
-Description: Description of examples
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
