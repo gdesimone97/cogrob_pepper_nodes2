@@ -20,7 +20,7 @@ class HeadMotionNode:
         self.motion_proxy = self.session.get_service("ALMotion")
     
     '''
-    This method calls the ALMotion service to move the robot head relative to the yaw angle
+    This method calls the ALMotion service to move the robot head relative to the yaw angle in radians
     '''
     def head_yaw(self, msg):
         try:
