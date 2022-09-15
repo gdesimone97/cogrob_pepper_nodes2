@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 
-from pepper_nodes.src.utils import Session
+from utils import Session
 from optparse import OptionParser
 import rospy
+from pepper_nodes.srv import ExecuteJS, LoadUrl
 
 '''
 This class implements a ROS node used to controll the Pepper tablet

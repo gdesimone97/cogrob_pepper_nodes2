@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import rospy
 from pepper_nodes.srv import Text2Speech, Text2SpeechRequest, Text2SpeechResponse
 

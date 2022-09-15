@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from pepper_nodes.src.utils import Session
+from utils import Session
 from optparse import OptionParser
 from std_msgs.msg import Float32MultiArray
 import rospy

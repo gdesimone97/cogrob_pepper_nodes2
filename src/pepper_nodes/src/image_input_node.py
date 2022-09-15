@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from cv_bridge import CvBridge
-from pepper_nodes.src.utils import Session
+from utils import Session
 from optparse import OptionParser
 from sensor_msgs.msg import Image
 import numpy as np
