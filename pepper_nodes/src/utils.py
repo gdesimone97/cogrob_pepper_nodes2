@@ -22,14 +22,14 @@ class Session:
         try:
             self.session.connect("tcp://" + self.ip + ":" + str(self.port))
         except RuntimeError:
-            print("Can't connect to Naoqi at ip \"" + self.ip + "\" on port " + str(self.port) + ".\n"
+            print("Can't connect to Naoqi at ip \"" + self.ip + "\" on port " + str(self.port) + ".\n "
                                                                                                  "Please check your script arguments. Run with -h option for help.")
             sys.exit(1)
     
-   '''
-   This method reconnect the session object to Pepper OS
-   @return: Returns the session object
-   '''
+    '''
+    This method reconnect the session object to Pepper OS
+    @return: Returns the session object
+    '''
     def reconnect(self):
         self._connect()
         return self.session
