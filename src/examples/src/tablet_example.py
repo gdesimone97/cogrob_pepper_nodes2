@@ -10,7 +10,8 @@ class Handler:
     def load_url(self, url):
         msg = LoadUrlRequest()
         msg.url = url
-        self.tablet_service(msg)
+        resp = self.tablet_service(msg)
+        rospy.loginfo(resp.ack)
 
 if __name__ == "__main__":
     NODE_NAME = "table_node_example"

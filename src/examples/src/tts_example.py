@@ -8,7 +8,10 @@ class Handler:
         self.tts = rospy.ServiceProxy("/tts", Text2Speech)
 
     def call(self, text: str):
-        self.tts(text)
+        msg = Text2SpeechRequest()
+        msg.speech = text
+        resp = self.tts(text)
+        rospy.loginfo(resp.ack)
 
 if __name__ == "__main__":
     NODE_NAME = "tts_node_example"
