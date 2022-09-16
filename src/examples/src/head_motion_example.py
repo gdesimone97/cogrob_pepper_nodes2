@@ -4,10 +4,18 @@ import rospy
 from std_msgs.msg import Float32MultiArray
 
 class Handler:
+    '''
+    The constructor subscribes the node to head_rotation topics
+    '''
     def __init__(self):
         self.head_motion_pitch_pub = rospy.Publisher("/head_rotation/pitch", Float32MultiArray, queue_size=10)
         self.head_motion_yaw_pub = rospy.Publisher("/head_rotation/yaw", Float32MultiArray, queue_size=10)
 
+    '''
+    This method publishes the desired head position relative to yaw angle
+    @param angle: Target angle in radians
+    @param velocity: Movement speed
+    '''
     def move_head_yaw(self, angle, velocity=0.2):
         msg = Float32MultiArray()
         msg.data = [angle, velocity]
@@ -16,6 +24,11 @@ class Handler:
             rospy.sleep(0.2)
         self.head_motion_yaw_pub.publish(msg)
 
+    '''
+    This method publishes the desired head position relative to pitch
+    @param angle: Target angle in radians
+    @velocity: Movement speed
+    '''
     def move_head_pitch(self, angle, velocity=0.2):
         msg = Float32MultiArray()
         msg.data = [angle, velocity]
