@@ -11,7 +11,7 @@ This class implements a ROS node that controls the robot head
 class HeadMotionNode:
     
     '''
-    The costructor creates a session to Pepper and inizializes the services
+    The costructor creates a session to robot and inizializes the services
     '''
     def __init__(self, ip, port):
         self.ip = ip
