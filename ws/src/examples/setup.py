@@ -20,6 +20,11 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            "head_motion_example=examples.head_motion_example:main",
+            "tablet_example=examples.tablet_example:main",
+            "tts_example=examples.tts_example:main",
+            "wakeup_example=examples.wakeup_example:main",
+            
         ],
     },
 )
