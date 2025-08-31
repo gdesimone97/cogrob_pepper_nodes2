@@ -17,6 +17,9 @@ find_package(rosidl_default_runtime REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/WakeUp.srv"
   "srv/Rest.srv"
+  "srv/Text2Speech.srv"
+  "srv/LoadUrl.srv"
+  "srv/ExecuteJS.srv"
 )
 
 
