@@ -1,9 +1,9 @@
 {
     "name": "Windows Development Container",
-    "privileged": true,
+    "privileged": false,
     "remoteUser": "mivia",
     "build": {
-        "dockerfile": "../Dockerfile",
+        "dockerfile": "../Dockerfile.base",
         "args": {
         }
     },
@@ -26,9 +26,10 @@
         }
     },
     "containerEnv": {
+        "DISPLAY": "host.docker.internal:0"
     },
     "runArgs": [
-        "-p", "33890:3389",
+        //"-p", "3389:3389",
     ],
     "mounts": [
     ],
