@@ -21,35 +21,41 @@ def generate_launch_description():
             package=pkg_name,
             executable='wakeup_node',
             name='wakeup_node',
-            parameters=[config_file]
+            parameters=[config_file],
+            output="screen",
         ),
         Node(
             package=pkg_name,
             executable='text2speech_node',
             name='text2speech_node',
-            parameters=[config_file]
+            parameters=[config_file],
+            output="screen",
         ),
         Node(
             package=pkg_name,
             executable='tablet_node',
             name='tablet_node',
-            parameters=[config_file]
+            parameters=[config_file],
+            output="screen",
         ),
         Node(
             package=pkg_name,
             executable='image_input_node',
             name='image_input_node',
-            parameters=[config_file]
+            parameters=[config_file],
+            output="screen",
         ),
         Node(
             package=pkg_name,
             executable='camera_show_node',
-            name='camera_show_node'
+            name='camera_show_node',
+            output="screen",
         ),
         Node(
             package=pkg_name,
             executable='head_motion_node',
             name='head_motion_node',
-            parameters=[config_file]
+            parameters=[config_file],
+            output="screen",
         ),
     ])
