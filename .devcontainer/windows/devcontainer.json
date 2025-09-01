@@ -3,7 +3,7 @@
     "privileged": false,
     "remoteUser": "mivia",
     "build": {
-        "dockerfile": "../Dockerfile.base",
+        "dockerfile": "../Dockerfile.qi",
         "args": {
         }
     },
@@ -33,6 +33,6 @@
     ],
     "mounts": [
     ],
-    "postCreateCommand": "",
+    "postCreateCommand": "echo 'source /workspace/ws/install/setup.bash' >> /home/mivia/.bashrc",
     "overrideCommand": true
 }

@@ -64,10 +64,6 @@ RUN echo "xfce4-session" | tee .xsession
 
 RUN echo "source /opt/ros/humble/setup.bash" >> .bashrc
 
-#NAOqi
-ADD --chown=mivia install_qi.bash /home/mivia/install_qi.bash
-RUN chmod +x /home/mivia/install_qi.bash
-
 # RDP
 EXPOSE 3389
 
