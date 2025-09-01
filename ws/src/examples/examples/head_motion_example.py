@@ -3,6 +3,8 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float32MultiArray
+from time import sleep
+
 class HeadMotionPublisher(Node):
 
     def __init__(self):
@@ -41,17 +43,17 @@ def main():
     
     while not node.has_subscribers(node.head_motion_yaw_pub):
         rclpy.spin_once(node, timeout_sec=0.2)
-    rclpy.spin_once(node, timeout_sec=SLEEP_TIME_SEC)
+    sleep(SLEEP_TIME_SEC)
     node.move_head_yaw(0.0, VELOCITY)
     
     while not node.has_subscribers(node.head_motion_pitch_pub):
         rclpy.spin_once(node, timeout_sec=0.2)
-    rclpy.spin_once(node, timeout_sec=SLEEP_TIME_SEC)
+    sleep(SLEEP_TIME_SEC)
     node.move_head_pitch(-0.35, VELOCITY)
     
     while not node.has_subscribers(node.head_motion_pitch_pub):
         rclpy.spin_once(node, timeout_sec=0.2)
-    rclpy.spin_once(node, timeout_sec=SLEEP_TIME_SEC)
+    sleep(SLEEP_TIME_SEC)
     node.move_head_pitch(0.0, VELOCITY)
 
     node.destroy_node()

@@ -3,7 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from pepper_interfaces.srv import WakeUp, Rest
-import time
+from time import sleep
 
 class WakeRestHandler(Node):
 
@@ -23,7 +23,7 @@ class WakeRestHandler(Node):
         future = self.wakeup_client.call_async(request)
         rclpy.spin_until_future_complete(self, future)
         if future.result():
-            self.get_logger().info(f"WakeUp response: {future.result().result}")
+            self.get_logger().info(f"WakeUp response: {future.result().ack}")
         else:
             self.get_logger().error("WakeUp service call failed")
 
@@ -32,7 +32,7 @@ class WakeRestHandler(Node):
         future = self.rest_client.call_async(request)
         rclpy.spin_until_future_complete(self, future)
         if future.result():
-            self.get_logger().info(f"Rest response: {future.result().result}")
+            self.get_logger().info(f"Rest response: {future.result().ack}")
         else:
             self.get_logger().error("Rest service call failed")
 
@@ -46,7 +46,7 @@ def main():
     node.wakeup()
 
     node.get_logger().info(f"Waiting for {SLEEP} seconds")
-    rclpy.spin_once(node, timeout_sec=SLEEP)
+    sleep(SLEEP)
 
     node.get_logger().info("I'm going to rest")
     node.rest()

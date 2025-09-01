@@ -26,7 +26,7 @@ class TabletNode(PepperNode):
             self.get_logger().warn(f"Load URL failed, retrying: {e}")
             self.tablet_proxy = self.session.get_service("ALTabletService")
             self.tablet_proxy.showWebview(request.url)
-        response.result = "ACK"
+        response.ack = "ACK"
         return response
 
     def execute_js_callback(self, request, response):
@@ -36,7 +36,7 @@ class TabletNode(PepperNode):
             self.get_logger().warn(f"Execute JS failed, retrying: {e}")
             self.tablet_proxy = self.session.get_service("ALTabletService")
             self.tablet_proxy.executeJS(request.js)
-        response.result = "ACK"
+        response.ack = "ACK"
         return response
 
 def main():

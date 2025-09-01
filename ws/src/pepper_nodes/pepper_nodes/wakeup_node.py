@@ -28,7 +28,7 @@ class WakeUpNode(PepperNode):
             self.get_logger().warn(f"Rest failed, retrying: {e}")
             self.motion_proxy = self.session.get_service("ALMotion")
             self.motion_proxy.rest()
-        response.result = "ACK"
+        response.ack = "ACK"
         return response
 
     def wakeup_callback(self, request, response):
@@ -41,7 +41,7 @@ class WakeUpNode(PepperNode):
             self.posture_proxy = self.session.get_service("ALRobotPosture")
             self.wakeup()
             self.stand()
-        response.result = "ACK"
+        response.ack = "ACK"
         return response
 
     def wakeup(self):
