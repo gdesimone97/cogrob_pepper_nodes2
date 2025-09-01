@@ -33,17 +33,20 @@ class WakeUpNode(PepperNode):
 
     def wakeup_callback(self, request, response):
         try:
-            self.motion_proxy.wakeUp()
+            self.wakeup()
             self.stand()
         except Exception as e:
             self.get_logger().warn(f"WakeUp failed, retrying: {e}")
             self.motion_proxy = self.session.get_service("ALMotion")
             self.posture_proxy = self.session.get_service("ALRobotPosture")
-            self.motion_proxy.wakeUp()
+            self.wakeup()
             self.stand()
         response.result = "ACK"
         return response
 
+    def wakeup(self):
+        self.motion_proxy.wakeUp()
+    
     def stand(self):
         self.posture_proxy.goToPosture("StandInit", 0.5)
 
