@@ -29,7 +29,6 @@
         "DISPLAY": "${localEnv:DISPLAY}",
     },
     "runArgs": [
-        "runArgs": [
         "--net=host",
         "--volume=/dev:/dev",
         "-e", "XAUTHORITY=/tmp/.Xauthority",
