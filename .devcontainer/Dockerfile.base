@@ -23,9 +23,6 @@ RUN pip install rasa==3.6.21 rasa[spacy]
 RUN python3 -m spacy download en_core_web_md
 RUN python3 -m spacy download it_core_news_md
 
-#CV bridge need numpy<2
-RUN pip install -U 'numpy<2'
-
 #Fix Pepper 230
 WORKDIR /usr/local/bin
 RUN apt update && apt install -y sshpass
@@ -45,6 +42,9 @@ RUN adduser xrdp ssl-cert
 #Installing LibGL
 RUN apt install -y libx11-dev libgl1-mesa-glx libxext-dev
 
+#Python utils
+RUN pip install httpx
+
 #User Creation
 RUN useradd -m -s /bin/bash mivia \
     && echo 'mivia:mivia' | chpasswd \
@@ -55,6 +55,10 @@ RUN echo "mivia ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> /home/mivia/.bashrc
 RUN echo "export _colcon_cd_root=/opt/ros/humble/" >> /home/mivia/.bashrc
 RUN echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> /home/mivia/.bashrc
+
+#NAOqi
+ADD --chown=mivia install_qi.bash /home/mivia/install_qi.bash
+RUN chmod +x /home/mivia/install_qi.bash && bash /home/mivia/install_qi.bash
 
 USER mivia
 WORKDIR /home/mivia/

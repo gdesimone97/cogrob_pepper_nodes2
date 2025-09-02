@@ -1,7 +1,0 @@
-FROM ghcr.io/gdesimone97/cogrob:latest
-
-#NAOqi
-ADD --chown=mivia install_qi.bash /home/mivia/install_qi.bash
-RUN chmod +x /home/mivia/install_qi.bash && bash /home/mivia/install_qi.bash
-
-CMD ["/bin/bash"]
