@@ -1,5 +1,5 @@
 {
-    "name": "Windows Development Container",
+    "name": "Linux Development Container",
     "privileged": false,
     "remoteUser": "mivia",
     "build": {
@@ -26,10 +26,16 @@
         }
     },
     "containerEnv": {
-        "DISPLAY": "host.docker.internal:0"
+        "DISPLAY": "${localEnv:DISPLAY}",
     },
     "runArgs": [
-        //"-p", "3389:3389",
+        "runArgs": [
+        "--net=host",
+        "--volume=/dev:/dev",
+        "-e", "XAUTHORITY=/tmp/.Xauthority",
+        "-v", "${localEnv:HOME}/.Xauthority:/tmp/.Xauthority",
+        // Uncomment row below to enable GPU support
+        //"--gpus=all",
     ],
     "mounts": [
     ],
