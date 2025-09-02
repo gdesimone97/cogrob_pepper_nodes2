@@ -27,6 +27,8 @@
     },
     "containerEnv": {
         "DISPLAY": "${localEnv:DISPLAY}",
+        //Configure your github token to use LLM API
+        "GITHUB_TOKEN": ""
     },
     "runArgs": [
         "--net=host",
