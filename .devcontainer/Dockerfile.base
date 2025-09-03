@@ -44,6 +44,7 @@ RUN apt install -y libx11-dev libgl1-mesa-glx libxext-dev
 
 #Python utils
 RUN pip install httpx
+RUN apt update && apt install -y python3.10-venv
 
 #User Creation
 RUN useradd -m -s /bin/bash mivia \
@@ -60,6 +61,10 @@ RUN echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> 
 ADD --chown=mivia install_qi.bash /home/mivia/install_qi.bash
 RUN chmod +x /home/mivia/install_qi.bash && bash /home/mivia/install_qi.bash
 
+#Audio libs
+RUN pip install sounddevice soundfile librosa
+RUN apt update && apt install -y portaudio19-dev python3-pyaudio
+
 USER mivia
 WORKDIR /home/mivia/
 ADD --chown=mivia run_xrdp.bash .
@@ -67,6 +72,7 @@ RUN chmod +x run_xrdp.bash
 RUN echo "xfce4-session" | tee .xsession
 
 RUN echo "source /opt/ros/humble/setup.bash" >> .bashrc
+ENV PATH=$PATH:/home/mivia/.local/bin
 
 # RDP
 EXPOSE 3389
