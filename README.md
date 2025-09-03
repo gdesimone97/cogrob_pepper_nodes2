@@ -191,6 +191,9 @@ Reference: [http://mamykin.com/posts/running-x-apps-on-mac-with-docker/](http://
 > [!NOTE]
 > This works only for Windows. If you need to run it on macOS, reproduce the commands manually in your shell from the same directory.
 
+> [!CAUTION]
+> This will create a new container that will be removed on exit. Only changes made inside the `/workspace` directory will persist.
+
 These commands will run the container as a daemon and start the RDP server on port `33890`.  
 You can open the GUI using an RDP client such as Windows Remote Desktop with the following setting:
 ```
