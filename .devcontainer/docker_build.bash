@@ -1,0 +1,1 @@
+docker build --push --platform=linux/arm64,linux/amd64 . -f Dockerfile.base -t ghcr.io/gdesimone97/cogrob:latest
